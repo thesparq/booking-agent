@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxe Hair Studio — WhatsApp AI Concierge & Salon Operations</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+</head>
+<body>
+  <div class="demo-viewport">
+    <!-- WhatsApp Customer Chat Pane -->
+    <section class="chat-pane" id="chatPane">
+      <!-- WhatsApp Header -->
+      <header class="wa-header">
+        <div class="wa-header-left" onclick="showSalonProfileModal()" title="Click to view verified salon business details">
+          <div class="wa-avatar-wrap">
+            <div class="wa-avatar">✂️</div>
+            <div class="wa-verified-badge" title="Official Meta Verified Business">✓</div>
+          </div>
+          <div class="wa-profile-info">
+            <div class="wa-title-row">
+              <span class="wa-name">Luxe Hair Studio</span>
+              <span class="wa-business-label">Official Business</span>
+            </div>
+            <span class="wa-status" id="agentStatus">online</span>
+          </div>
+        </div>
+
+        <div class="wa-header-actions">
+          <button class="btn-backstage-toggle" id="toggleBackstageBtn" onclick="toggleBackstage()" title="Toggle Live Salon Operations & Manifest Dashboard">
+            <span>🖥️ Salon Backstage</span>
+          </button>
+          <button class="btn-icon" title="Search messages">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+          <button class="btn-icon" title="Clear chat history" onclick="resetChatHistory()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Canvas -->
+      <main class="chat-canvas" id="chatCanvas">
+        <!-- Date divider -->
+        <div class="wa-date-divider">Today</div>
+
+        <!-- Encryption notice banner -->
+        <div class="wa-security-banner">
+          <span>🔒</span>
+          <span>Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.</span>
+        </div>
+
+        <!-- Dynamic message feed rendered here -->
+      </main>
+
+      <!-- Quick Action Pills -->
+      <div class="quick-replies-bar" id="quickRepliesBar">
+        <button class="wa-chip" onclick="handleQuickSend('What services and prices do you offer?')">💇‍♀️ Services & Prices</button>
+        <button class="wa-chip" onclick="handleQuickSend('What time slots are available?')">📅 Available Slots</button>
+        <button class="wa-chip" onclick="handleQuickSend('Who are your stylists?')">✂️ Meet Stylists</button>
+        <button class="wa-chip" onclick="handleQuickSend('What are your salon hours and location?')">🕒 Hours & Location</button>
+        <button class="wa-chip" onclick="handleQuickSend('I would like to book an appointment with Sarah for Balayage')">✨ Book Balayage ($160)</button>
+        <button class="wa-chip" onclick="handleQuickSend('pay deposit #LUXE-103')">💳 Pay Deposit ($30)</button>
+        <button class="wa-chip" onclick="handleQuickSend('cancel appointment #LUXE-101')">❌ Cancel #LUXE-101</button>
+      </div>
+
+      <!-- WhatsApp Input Bar -->
+      <footer class="wa-input-footer">
+        <button class="btn-icon" title="Insert Emoji">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        </button>
+        <button class="btn-icon" title="Attach Document / Photo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+        </button>
+        <input 
+          type="text" 
+          id="messageInput" 
+          class="wa-input-box" 
+          placeholder="Type a message..." 
+          autocomplete="off"
+        />
+        <button id="sendBtn" class="btn-send-wa" onclick="submitMessage()" title="Send WhatsApp Message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+        </button>
+      </footer>
+    </section>
+
+    <!-- Salon Staff Backstage Operations Drawer -->
+    <aside class="backstage-pane" id="backstagePane">
+      <header class="backstage-header">
+        <div class="backstage-title">
+          <span>🖥️ Salon Staff Backstage</span>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-icon" title="Refresh Live Data" onclick="refreshBackstageData()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+          <button class="btn-icon" title="Close Backstage" onclick="toggleBackstage()">✕</button>
+        </div>
+      </header>
+
+      <div class="backstage-content" id="backstageContent">
+        <!-- Live KPIs -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Salon Performance KPIs</span>
+            <span style="font-size:10px; color:#00a884;">Live Analytics</span>
+          </div>
+          <div class="kpi-grid">
+            <div class="kpi-tile">
+              <div class="kpi-value gold" id="kpiRevenue">$840</div>
+              <div class="kpi-label">Projected Revenue</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-value" id="kpiUtilization">82%</div>
+              <div class="kpi-label">Seat Utilization</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-value" id="kpiConfirmed">4</div>
+              <div class="kpi-label">Confirmed Bookings</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-value gold" id="kpiPendingHolds">1</div>
+              <div class="kpi-label">Pending Deposit Holds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Operations Manifest -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Today's Daily Manifest</span>
+            <span style="font-size:10px; color:#8696a0;">BookingCoordinator</span>
+          </div>
+          <div id="manifestAppointmentsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Deposit Holds & Stripe Webhooks Pipeline -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Deposit Holds Pipeline ($100+ Services)</span>
+            <span style="font-size:10px; color:#ffd279;">Durable Promise</span>
+          </div>
+          <div id="depositHoldsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Durable 24h Reminders Log -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Durable Timer Reminders (rpcSchedule)</span>
+            <span style="font-size:10px; color:#53bdeb;">Host Effect</span>
+          </div>
+          <div id="remindersList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Notification Dispatcher Queue & Outbox -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Notification Dispatcher Outbox</span>
+            <span style="font-size:10px; color:#00a884;">Meta Cloud API</span>
+          </div>
+          <div id="notificationsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

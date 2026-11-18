@@ -1,0 +1,11 @@
+build/
+*.wasm
+frontend/embed.html
+frontend/preview.html
+.DS_Store
+golem-temp/
+wit/generated/
+dist/
+.agents/
+.gemini/
+.claude

@@ -1,0 +1,52 @@
+# Schema for IDEA:
+# $schema: https://schema.golem.cloud/app/golem/1.6.0/golem.schema.json
+# Schema for vscode-yaml:
+# yaml-language-server: $schema=https://schema.golem.cloud/app/golem/1.6.0/golem.schema.json
+
+manifestVersion: 1.6.0
+
+app: booking-agent
+
+version:
+  git:
+    tagPattern: "v*"
+    hashFallback: true
+    staticFallback: "v1.2.1"
+
+environments:
+  local:
+    server: local
+    version:
+      git:
+        allowDirty: true
+  cloud:
+    server: cloud
+    deployment:
+      versionCheck: true
+
+components:
+  booking-agent:booking-agent:
+    componentWasm: "build/booking_agent.wasm"
+    build:
+      - command: "./build.sh"
+    files:
+      - sourcePath: "data/business.json"
+        targetPath: "/data/business.json"
+        permissions: "read-only"
+      - sourcePath: "build/inlined_demo.html"
+        targetPath: "/www/index.html"
+        permissions: "read-only"
+      - sourcePath: "frontend/style.css"
+        targetPath: "/www/style.css"
+        permissions: "read-only"
+      - sourcePath: "frontend/app.js"
+        targetPath: "/www/app.js"
+        permissions: "read-only"
+
+httpApi:
+  deployments:
+    local:
+      - subdomain: salon
+        agents:
+          booking-coordinator: {}
+

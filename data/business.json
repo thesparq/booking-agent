@@ -1,0 +1,81 @@
+{
+  "name": "Luxe Hair Studio",
+  "tagline": "Bespoke Styling, Cuts & Color",
+  "phone": "+1 (555) 234-5678",
+  "address": "742 Evergreen Terrace, Suite 101, Springfield",
+  "hours": [
+    "Monday - Friday: 9:00 AM - 7:00 PM",
+    "Saturday: 9:00 AM - 5:00 PM",
+    "Sunday: Closed"
+  ],
+  "services": [
+    {
+      "id": "womens_cut",
+      "name": "Women's Cut & Blowdry",
+      "price": 65,
+      "duration_mins": 60,
+      "description": "Precision haircut, scalp massage, and signature blowout."
+    },
+    {
+      "id": "mens_cut",
+      "name": "Men's Cut & Style",
+      "price": 40,
+      "duration_mins": 45,
+      "description": "Custom haircut, beard detailing, hot towel, and styling."
+    },
+    {
+      "id": "single_process_color",
+      "name": "Single Process Color",
+      "price": 90,
+      "duration_mins": 90,
+      "description": "All-over root touch-up or single tone color with gloss finish."
+    },
+    {
+      "id": "balayage",
+      "name": "Balayage & Highlights",
+      "price": 160,
+      "duration_mins": 150,
+      "description": "Hand-painted sun-kissed dimension customized to your features."
+    },
+    {
+      "id": "keratin_treatment",
+      "name": "Keratin Smoothing Treatment",
+      "price": 200,
+      "duration_mins": 120,
+      "description": "Long-lasting frizz reduction and mirror shine for up to 4 months."
+    }
+  ],
+  "stylists": [
+    {
+      "id": "elena",
+      "name": "Elena Rostova",
+      "specialty": "Master Stylist & Colorist"
+    },
+    {
+      "id": "marcus",
+      "name": "Marcus Vance",
+      "specialty": "Precision Cutting & Styling"
+    },
+    {
+      "id": "sophia",
+      "name": "Sophia Chen",
+      "specialty": "Balayage & Texture Specialist"
+    }
+  ],
+  "available_slots": [
+    "Today 2:00 PM",
+    "Today 3:30 PM",
+    "Today 5:00 PM",
+    "Tomorrow 10:00 AM",
+    "Tomorrow 11:30 AM",
+    "Tomorrow 2:00 PM",
+    "Tomorrow 4:00 PM",
+    "Friday 10:00 AM",
+    "Friday 1:00 PM",
+    "Friday 3:30 PM"
+  ],
+  "policies": [
+    "Cancellations: Please give at least 24 hours notice.",
+    "Arrival: Please arrive 10 minutes prior to your scheduled appointment."
+  ]
+}
